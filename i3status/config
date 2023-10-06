@@ -1,0 +1,76 @@
+general {
+        output_format = "i3bar"
+        colors = false
+        markup = pango
+        interval = 1
+        color_good = '#2f343f'
+	color_degraded = '#ebcb8b'
+	color_bad = '#ba5e57'
+}
+
+order += "cpu_usage"
+order += "memory"
+order += "disk /"
+order += "disk /home"
+order += "ethernet enp0s20u3"
+order += "volume master"
+order += "battery 0"
+order += "tztime date"
+order += "tztime hour"
+
+cpu_usage {
+	format = "<span background='#80d6fe'> CPU %usage </span>"
+	max_threshold = 95
+	format_above_threshold = "<span background='ff220f'> CPU %usage </span>"	
+}
+
+disk "/" {
+        format = "<span background='#00e688'> / %percentage_used </span>"
+}
+
+disk "/home" {
+        format = "<span background='#b8ffee'> /home %percentage_used </span>"
+}
+
+ethernet enp0s20u3 {
+        format_up = "<span background='#80d6fe'>  %ip </span>"
+        format_down = "<span background='#80d6fe'>  Disconnected </span>"
+}
+
+volume master {
+        format = "<span background='#c9fe7c'>  %volume </span>"
+        format_muted = "<span background='#c9fe7c'>  Muted </span>"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
+
+battery 0 {
+	last_full_capacity = true
+        integer_battery_capacity = true
+	format = "<span background='#00e688'> %status %percentage %remaining </span>"
+        format_down = " No Battery"
+        status_chr = " Charging"
+        status_bat = ""
+        status_unk = " Unknown"
+        status_full = " Charged"
+        path = "/sys/class/power_supply/BAT0/uevent"
+        low_threshold = 10
+}
+
+tztime date {
+	format = "<span background='#b8ffee'> %d.%m.%Y </span>"
+	timezone = "Europe/Berlin"
+}
+
+tztime hour {
+	format = "<span background='#b8ffee'> %H:%M:%S </span>"
+	timezone = "Europe/Berlin"
+}
+
+memory {
+	format = "<span background='#c9fe7c'>  %used </span>"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
+}
+#88c0d0 main color
